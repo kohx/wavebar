@@ -17,12 +17,18 @@ app.get('/', (req, res, next) => {
     parts: {
       header: fs.readFileSync(`${__dirname}/templates/parts/header.html`, 'utf8'),
       footer: fs.readFileSync(`${__dirname}/templates/parts/footer.html`, 'utf8'),
+      name: fs.readFileSync(`${__dirname}/templates/parts/name.html`, 'utf8'),
     },
     wraps: {
       html: fs.readFileSync(`${__dirname}/templates/wraps/html.html`, 'utf8'),
     },
     params: {
       name: 'home',
+      unique : 'unique',
+      sign  : 'sign ',
+      user   : 'user  ',
+      sign  : 'sign ',
+      items   : {},
     }
   }
   res.wbRender(data)

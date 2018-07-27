@@ -26,7 +26,6 @@ module.exports.init = (req, res, next) => {
 }
 
 function render(res, data) {
-    // try {
     let content = (data.content != null) ? data.content : ''
     const wraps = (data.wraps != null) ? data.wraps : {}
     const parts = (data.parts != null) ? data.parts : {}
@@ -40,11 +39,7 @@ function render(res, data) {
     const compiled = compile(builded, params)
     // console.log('compiled--->', compiled)
     // return compiled        
-    res.send(builded)
-
-    // } catch (error) {
-    //     throw error
-    // }
+    res.send(enLining(compiled))
 }
 
 // get marge
@@ -95,10 +90,11 @@ function separate(string) {
 // build
 function build(matches, params) {
     const keys = '[' + Object.keys(params).join(',') + ']'
-    let builded = `const ${keys} = values\n`
-    builded += `compiled = ''\n`
+    let builded = `const ${keys} = values;\n`
+    builded += `compiled = '';\n`
 
     matches.forEach((matche, key) => {
+        // const matcheLine = matche.replace(/\r/g, '')
         if (matche.startsWith('{|')) {
             const cleared = matche.replace(nakedReg, '')
             let type = cleared.substr(0, 1)
@@ -187,10 +183,10 @@ function regEscape(str, option = null) {
 }
 
 function lining(string) {
-
+    string = string.replace(/\r/g, '')
     return string.replace(/\n/g, nlMarke)
 }
-function enlining(string) {
+function enLining(string) {
 
     return string.replace(regEscape(nlMarke, 'g'), '\n')
 }
