@@ -1,0 +1,17 @@
+{|@ html |} {|> header |}
+<a href="/signin">signin</a>
+<button id="signout">sign out</button>
+<h1>{|&name|}</h1>
+<ul>
+    <li>{| unique|}</li>
+    <li>{| sign.status|}</li>
+    <li>{| sign.message|}</li>
+</ul>
+<p>{|user.uid|}</p>
+<p>{|user.email|}</p>
+<ul>
+    {|* items : item |}
+    <li> {|# item.name: name |}{| item.name |}:{| name |}{| /# |} {|# item.gender: gender |}{| gender |}{| /# |} </li>
+    {|/*|}
+</ul>
+{|> footer |}
