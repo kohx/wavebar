@@ -48,6 +48,7 @@ function marge(content, wraps, parts) {
     content = lining(content)
     // insert wrap content
     const wrapTags = content.match(wrapReg)
+    wrapTags.reverse()
     wrapTags.forEach(wrapTag => {
         // get wrap content
         const nakedTag = wrapTag.replace(nakedReg, '')

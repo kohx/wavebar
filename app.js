@@ -21,6 +21,7 @@ app.get('/', (req, res, next) => {
     },
     wraps: {
       html: fs.readFileSync(`${__dirname}/templates/wraps/html.html`, 'utf8'),
+      wrapper: fs.readFileSync(`${__dirname}/templates/wraps/wrapper.html`, 'utf8'),
     },
     params: {
       name: 'home',
@@ -45,7 +46,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500)
-  res.send(`${err.message}<br>${err.stack}`)
+  res.send(`${err.message}<br>${err.stack}`.replace(/\n/, '<br>'))
 })
 
 module.exports = app
