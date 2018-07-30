@@ -49,11 +49,23 @@ function marge(content, wraps, parts) {
     // insert wrap content
     const wrapTags = content.match(wrapReg)
     wrapTags.forEach(wrapTag => {
+        // get wrap content
         const nakedTag = wrapTag.replace(nakedReg, '')
         const cleanTag = nakedTag.replace(typeReg, '')
         const wrapContent = lining(wraps[cleanTag])
-        content = content.replace(wrapTag, '')
-        content = wrapContent.replace(wrapTag, content)
+        // ラッパーのコンテントの中に有るタグを検索
+        const contentSideTags = wrapContent.match(wrapReg)
+        contentSideTags.forEach(contentSideTag => {
+            const contentSideNakedTag = contentSideTag.replace(nakedReg, '')
+            const contentSideCleanTag = contentSideNakedTag.replace(typeReg, '')
+            // クリーンしたラッパーのコンテントの中に有るタグが一致する場合
+            if (contentSideCleanTag == cleanTag) {
+                // コンテンツのタグを削除
+                content = content.replace(wrapTag, '')
+                // ラッパーコンテンツのタグをリプレイス
+                content = wrapContent.replace(contentSideTag, content)
+            }
+        })
     })
 
     // insert part content
